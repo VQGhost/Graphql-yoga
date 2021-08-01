@@ -11,24 +11,24 @@ const Query = {
     if (!id) {
       return prisma.users.findMany();
     }
-    return prisma.users.findOne({
+    return prisma.users.findMany({
       where: {
-        id,
+        id: Number(id),
       },
     });
   },
-  author: (parent, { id, take, skip, orderBy }, { request, prisma }, info) => {
+  author: (parent, { id, first, skip, orderBy }, { request, prisma }, info) => {
     const userId = getUserId(request);
     if (!id) {
       return prisma.authors.findMany({
-        take,
+        first,
         skip,
         orderBy,
       });
     }
-    return prisma.authors.findOne({
+    return prisma.authors.findMany({
       where: {
-        id,
+        id: Number(id),
       },
     });
   },
@@ -41,9 +41,9 @@ const Query = {
         orderBy,
       });
     }
-    return prisma.books.findOne({
+    return prisma.books.findMany({
       where: {
-        id,
+        id: Number(id),
       },
     });
   },

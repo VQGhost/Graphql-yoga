@@ -1,6 +1,6 @@
 import { getUserId } from "../utils";
 const Author = {
-  book: (parent, args, { request, prisma }, info) => {
+  books: (parent, args, { request, prisma }, info) => {
     const userId = getUserId(request);
     return prisma.authors
       .findOne({
