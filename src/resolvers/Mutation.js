@@ -19,7 +19,7 @@ const Mutation = {
     };
   },
   login: async (parent, { data }, { prisma }, info) => {
-    const user = await prisma.users.findOne({
+    const user = await prisma.users.findFirst({
       where: {
         email: data.email,
       },

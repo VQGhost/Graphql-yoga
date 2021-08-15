@@ -3,7 +3,7 @@ const Author = {
   books: (parent, args, { request, prisma }, info) => {
     const userId = getUserId(request);
     return prisma.authors
-      .findOne({
+      .findFirst({
         where: {
           id: parent.id,
         },
@@ -13,7 +13,7 @@ const Author = {
   register_by: (parent, args, { request, prisma }, info) => {
     const userId = getUserId(request);
     return prisma.authors
-      .findOne({
+      .findFirst({
         where: {
           id: parent.id,
         },

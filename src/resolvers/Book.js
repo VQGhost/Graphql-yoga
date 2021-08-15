@@ -3,7 +3,7 @@ const Book = {
   writted_by: (parent, args, { request, prisma }, info) => {
     const userId = getUserId(request);
     return prisma.books
-      .findOne({
+      .findFirst({
         where: {
           id: parent.id,
         },
@@ -13,7 +13,7 @@ const Book = {
   register_by: (parent, args, { request, prisma }, info) => {
     const userId = getUserId(request);
     return prisma.books
-      .findOne({
+      .findFirst({
         where: {
           id: parent.id,
         },
