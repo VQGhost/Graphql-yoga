@@ -12,7 +12,7 @@ model authors {
   name        String? @db.VarChar
   country     String? @db.VarChar
   register_by Int?
-  users       users?  @relation(fields: [register_by], references: [id])
+  users       users?  @relation(fields: [register_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
   books       books[]
 }
 
@@ -24,8 +24,8 @@ model books {
   price       Int?
   writted_by  Int?
   register_by Int?
-  users       users?   @relation(fields: [register_by], references: [id])
-  authors     authors? @relation(fields: [writted_by], references: [id])
+  users       users?   @relation(fields: [register_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  authors     authors? @relation(fields: [writted_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {

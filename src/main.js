@@ -1,4 +1,4 @@
-import { GraphQLServer, PubSub } from "graphql-yoga";
+import { createServer } from "@graphql-yoga/node";
 import Query from "./resolvers/Query";
 import db from "./db";
 import Author from "./resolvers/Author";
@@ -9,30 +9,37 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const pubsub = new PubSub();
-
 const resolvers = {
   Query,
-  Author,
-  Book,
-  Mutation,
-  Subscription,
 };
+
 const context = {
   db,
-  pubsub,
   prisma,
 };
-const server = new GraphQLServer({
-  typeDefs: "./src/schema.graphql",
-  resolvers,
-  context: (request) => {
-    return {
-      ...request,
-      ...context,
-    };
+
+const server = new createServer({
+  schema: {
+    typeDefs: "/src/schema.graphql",
+    resolvers,
   },
 });
+
+const server2 = createServer({
+  schema: {
+    typeDefs: `
+      type Query {
+        ping: String
+      }
+    `,
+    resolvers: {
+      Query: {
+        ping: () => "pong",
+      },
+    },
+  },
+});
+
 server.start({ port: 8000 }, ({ port }) =>
   console.log(`Server is running on localhost: ${port}`)
 );
